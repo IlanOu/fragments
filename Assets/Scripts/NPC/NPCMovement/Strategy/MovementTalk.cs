@@ -1,16 +1,17 @@
-
+using Nenn.InspectorEnhancements.Runtime.Attributes.Conditional;
 using UnityEngine;
 using NPC.NPCAnimations;
+using UnityEngine.Timeline;
 
-class NPCMovementTalk : NPCMovementStrategy
+class MovementTalk : MovementStrategy
 {
     private readonly AudioClip clip;
     private AudioSource source;
     private bool launched;
     private bool finished;
 
-    public NPCMovementTalk(NPCMovement mov, AudioClip clip)
-        : base(mov) => this.clip = clip;
+    public MovementTalk(GameObject NPC, AudioClip clip)
+        : base(NPC) => this.clip = clip;
 
     public override void StartMovement()
     {
@@ -18,12 +19,12 @@ class NPCMovementTalk : NPCMovementStrategy
         launched = true;
 
         // Animation ON
-        NPCAnimBus.Bool(npcMovement.Manager.gameObject,
+        NPCAnimBus.Bool(NPC,
             NPCAnimationsType.Talk, true);
 
         // Lecture audio
-        source = npcMovement.Manager.GetComponent<AudioSource>();
-        if (source == null) source = npcMovement.Manager.gameObject.AddComponent<AudioSource>();
+        source = NPC.GetComponent<AudioSource>();
+        if (source == null) source = NPC.AddComponent<AudioSource>();
 
         if (clip != null) source.PlayOneShot(clip);
         else              finished = true;                   // pas de son → fin immédiate
@@ -40,7 +41,7 @@ class NPCMovementTalk : NPCMovementStrategy
             if (audioDone)
             {
                 // Animation OFF
-                NPCAnimBus.Bool(npcMovement.Manager.gameObject,
+                NPCAnimBus.Bool(NPC,
                     NPCAnimationsType.Talk, false);
                 finished = true;
             }

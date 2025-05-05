@@ -2,14 +2,15 @@
 using UnityEngine;
 using NPC.NPCAnimations;
 
-class NPCMovementSwim : NPCMovementStrategy
+
+class MovementSwim : MovementStrategy
 {
     private readonly float swimDuration;
     private float timer = 0f;
     private bool launched = false;
 
-    public NPCMovementSwim(NPCMovement npcMovement, float duration = 3f)
-        : base(npcMovement)
+    public MovementSwim(GameObject NPC, float duration = 3f)
+        : base(NPC)
     {
         swimDuration = duration;
     }
@@ -21,7 +22,7 @@ class NPCMovementSwim : NPCMovementStrategy
         timer = 0f;
 
         // Bool ON
-        NPCAnimBus.Bool(npcMovement.Manager.gameObject,
+        NPCAnimBus.Bool(NPC,
             NPCAnimationsType.Swim,
             true);
     }
@@ -39,7 +40,7 @@ class NPCMovementSwim : NPCMovementStrategy
                 launched = false;
 
                 // Bool OFF  <--  C’était la ligne manquante
-                NPCAnimBus.Bool(npcMovement.Manager.gameObject,
+                NPCAnimBus.Bool(NPC,
                     NPCAnimationsType.Swim,
                     false);
 

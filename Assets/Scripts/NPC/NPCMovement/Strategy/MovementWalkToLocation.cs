@@ -1,17 +1,27 @@
-/* --------------- NPCMovementWalkToLocation ---------------- */
 using UnityEngine;
 using NPC.NPCAnimations;
 
-class NPCMovementWalkToLocation : NPCMovementStrategy
+class MovementWalkToLocation : MovementStrategy
 {
     private readonly GameObject _targetLoc;
     private bool launched = false;
 
-    public NPCMovementWalkToLocation(NPCMovement npcMovement, GameObject targetLocation)
-        : base(npcMovement)
+    public MovementWalkToLocation(GameObject NPC, GameObject targetLocation)
+        : base(NPC)
     {
-        if (targetLocation == null) { Debug.LogError("Target Location null"); npcMovement.Enabled=false; return; }
-        if (!targetLocation.CompareTag("Location")) { Debug.LogError("Target must be tagged Location"); npcMovement.Enabled=false; return; }
+        /*if (targetLocation == null)
+        {
+            Debug.LogError("Target Location null"); 
+            NPC.enabled=false; 
+            return;
+        }
+
+        if (!targetLocation.CompareTag("Location"))
+        {
+            Debug.LogError("Target must be tagged Location"); 
+            NPC.enabled=false; 
+            return;
+        }*/
 
         _targetLoc = targetLocation;
     }
@@ -24,7 +34,7 @@ class NPCMovementWalkToLocation : NPCMovementStrategy
         MainAgent.SetDestination(_targetLoc.transform.position);
         MainAgent.stoppingDistance = 0f;
 
-        NPCAnimBus.Bool(npcMovement.Manager.gameObject, NPCAnimationsType.Walk, true);
+        NPCAnimBus.Bool(NPC, NPCAnimationsType.Walk, true);
     }
 
     public override bool IsDone
@@ -36,7 +46,7 @@ class NPCMovementWalkToLocation : NPCMovementStrategy
 
             if (finished && launched)
             {
-                NPCAnimBus.Bool(npcMovement.Manager.gameObject, NPCAnimationsType.Walk, false);
+                NPCAnimBus.Bool(NPC, NPCAnimationsType.Walk, false);
                 launched = false;
             }
             return finished;

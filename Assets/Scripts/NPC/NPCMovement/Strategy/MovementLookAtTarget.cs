@@ -1,7 +1,8 @@
 using UnityEngine;
 using NPC.NPCAnimations;
 
-class NPCMovementLookAtTarget : NPCMovementStrategy
+
+class MovementLookAtTarget : MovementStrategy
 {
     private readonly GameObject target;
     private readonly float holdDuration;
@@ -9,19 +10,13 @@ class NPCMovementLookAtTarget : NPCMovementStrategy
     private float timer;
     private bool launched;
 
-    public NPCMovementLookAtTarget(NPCMovement mov,
+    public MovementLookAtTarget(GameObject NPC,
                                   GameObject target,
                                   float duration)
-        : base(mov)
+        : base(NPC)
     {
         this.target = target;
-        this.holdDuration = Mathf.Max(0f, duration);
-
-        if (target == null)
-        {
-            mov.Enabled = false;
-            Debug.LogError("LookAtTarget : target manquant !");
-        }
+        holdDuration = Mathf.Max(0f, duration);
     }
 
     public override void StartMovement()
@@ -34,14 +29,14 @@ class NPCMovementLookAtTarget : NPCMovementStrategy
         MainAgent.updateRotation = false;
         
         // Désactiver Root Motion pendant le regard
-        Animator animator = npcMovement.Manager.GetComponentInChildren<Animator>();
+        Animator animator = NPC.GetComponentInChildren<Animator>();
         if (animator != null)
         {
             animator.applyRootMotion = false;
         }
     
         // On coupe l'anim Walk au cas où
-        NPCAnimBus.Bool(npcMovement.Manager.gameObject,
+        NPCAnimBus.Bool(NPC,
                         NPCAnimationsType.Walk, false);
     }
 
@@ -61,7 +56,7 @@ class NPCMovementLookAtTarget : NPCMovementStrategy
                 MainAgent.updateRotation = true;   // on rend la main à l'agent
             
                 // Réactiver Root Motion à la fin si nécessaire
-                Animator animator = npcMovement.Manager.GetComponentInChildren<Animator>();
+                Animator animator = NPC.GetComponentInChildren<Animator>();
                 if (animator != null)
                 {
                     animator.applyRootMotion = true;
@@ -74,7 +69,7 @@ class NPCMovementLookAtTarget : NPCMovementStrategy
 
     private void Rotate()
     {
-        Transform me = npcMovement.Manager.transform;
+        Transform me = NPC.transform;
         Vector3 dir = target.transform.position - me.position;
     
         if (dir.sqrMagnitude < 0.001f) return;

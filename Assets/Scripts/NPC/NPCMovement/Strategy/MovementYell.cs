@@ -1,16 +1,15 @@
-
 using UnityEngine;
 using NPC.NPCAnimations;
 
-class NPCMovementYell : NPCMovementStrategy
+class MovementYell : MovementStrategy
 {
     private readonly AudioClip clip;
     private AudioSource source;
     private bool launched;
     private bool finished;
 
-    public NPCMovementYell(NPCMovement mov, AudioClip clip)
-        : base(mov) => this.clip = clip;
+    public MovementYell(GameObject NPC, AudioClip clip)
+        : base(NPC) => this.clip = clip;
 
     public override void StartMovement()
     {
@@ -18,12 +17,12 @@ class NPCMovementYell : NPCMovementStrategy
         launched = true;
 
         // Animation ON
-        NPCAnimBus.Bool(npcMovement.Manager.gameObject,
+        NPCAnimBus.Bool(NPC,
             NPCAnimationsType.Yell, true);
 
         // Lecture audio
-        source = npcMovement.Manager.GetComponent<AudioSource>();
-        if (source == null) source = npcMovement.Manager.gameObject.AddComponent<AudioSource>();
+        source = NPC.GetComponent<AudioSource>();
+        if (source == null) source = NPC.AddComponent<AudioSource>();
 
         if (clip != null) source.PlayOneShot(clip);
         else              finished = true;
@@ -40,7 +39,7 @@ class NPCMovementYell : NPCMovementStrategy
             if (audioDone)
             {
                 // Animation OFF
-                NPCAnimBus.Bool(npcMovement.Manager.gameObject,
+                NPCAnimBus.Bool(NPC,
                     NPCAnimationsType.Yell, false);
                 finished = true;
             }

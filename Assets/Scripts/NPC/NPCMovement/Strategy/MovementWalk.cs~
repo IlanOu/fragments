@@ -2,23 +2,24 @@ using UnityEngine;
 using UnityEngine.AI;
 using NPC.NPCAnimations;   // enum + bus
 
-class NPCMovementWalk : NPCMovementStrategy
+
+class MovementWalk : MovementStrategy
 {
     private readonly float _min;
     private readonly float _max;
     private Vector3 targetPos;
     private bool hasStarted = false;
 
-    public NPCMovementWalk(NPCMovement npcMovement,
+    public MovementWalk(GameObject NPC,
         float minWander,
         float maxWander)
-        : base(npcMovement)
+        : base(NPC)
     {
         _min = minWander;
         _max = maxWander;
 
         Vector3 rnd = Random.insideUnitSphere * Random.Range(_min, _max);
-        targetPos   = rnd + npcMovement.Manager.transform.position;
+        targetPos   = rnd + NPC.transform.position;
     }
 
     /* ---------- Lancement ---------- */
@@ -33,7 +34,7 @@ class NPCMovementWalk : NPCMovementStrategy
             MainAgent.stoppingDistance = 0f;
 
             // Animation ON
-            NPCAnimBus.Bool(npcMovement.Manager.gameObject,
+            NPCAnimBus.Bool(NPC,
                 NPCAnimationsType.Walk,
                 true);
         }
@@ -52,7 +53,7 @@ class NPCMovementWalk : NPCMovementStrategy
             if (finished && hasStarted)
             {
                 // Animation OFF (une seule fois)
-                NPCAnimBus.Bool(npcMovement.Manager.gameObject,
+                NPCAnimBus.Bool(NPC,
                     NPCAnimationsType.Walk,
                     false);
                 hasStarted = false;          // évite de spammer

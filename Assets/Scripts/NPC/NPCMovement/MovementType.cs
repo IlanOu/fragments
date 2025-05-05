@@ -1,12 +1,11 @@
 
 public enum NPCMovementType 
 {
-    ApproachToNPC,
-    Dance,
     Walk,
     WalkToLocation,
-    Talk,
     LookAtTarget,
+    Dance,
+    Talk,
     Yell,
     Swim
 }
