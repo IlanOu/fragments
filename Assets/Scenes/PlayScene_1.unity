@@ -346,8 +346,8 @@ GameObject:
   m_Component:
   - component: {fileID: 80786937}
   - component: {fileID: 80786936}
-  - component: {fileID: 80786938}
   - component: {fileID: 80786939}
+  - component: {fileID: 80786938}
   m_Layer: 0
   m_Name: Zone
   m_TagString: Untagged
@@ -406,7 +406,7 @@ MonoBehaviour:
   movementSequence:
   - movementType: 3
     parameters:
-      targetObject: {fileID: 866473959}
+      targetObject: {fileID: 0}
       audioClip: {fileID: 0}
       duration: 3
       speed: 3
@@ -1835,6 +1835,10 @@ PrefabInstance:
     - target: {fileID: 6763161909288186660, guid: 2a4539157ec2ba34aa8ee2d75a425543, type: 3}
       propertyPath: m_StoppingDistance
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7339479362294093831, guid: 2a4539157ec2ba34aa8ee2d75a425543, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7568836782147728488, guid: 2a4539157ec2ba34aa8ee2d75a425543, type: 3}
       propertyPath: movement
@@ -5337,6 +5341,7 @@ MonoBehaviour:
   swimAnimationName: Swim
   danceAnimationName: Dance
   lookAtAnimationName: Idle
+  transitionDuration: 0.25
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

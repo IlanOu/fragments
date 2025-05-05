@@ -163,9 +163,84 @@ namespace NPC.NPCMovement
             StopCurrentMovement();
             _pendingMovements.Clear();
         }
+        
+        
+        
+        // Ajoutez ces méthodes à votre classe Movement existante
+        // pour le support du système de rewind
+
+        // Méthode pour obtenir l'état actuel
+        public MovementState GetCurrentState()
+        {
+            MovementState state = new MovementState();
+            state.IsExecutingMovement = _isExecutingMovement;
+            
+            // Copier la file d'attente
+            state.PendingMovements = new List<MovementCommand>(_pendingMovements);
+            
+            // Capturer la stratégie actuelle
+            if (_currentStrategy != null)
+            {
+                state.CurrentMovementType = GetMovementTypeFromStrategy(_currentStrategy);
+                state.CurrentParameters = GetParametersFromStrategy(_currentStrategy);
+            }
+            
+            return state;
+        }
+
+        // Méthode pour restaurer l'état
+        public void RestoreState(MovementState state)
+        {
+            if (state == null) return;
+            
+            // Arrêter tous les mouvements en cours
+            StopAllMovements();
+            
+            // Restaurer l'état
+            _isExecutingMovement = state.IsExecutingMovement;
+            _pendingMovements = new Queue<MovementCommand>(state.PendingMovements);
+            
+            // Restaurer la stratégie actuelle si nécessaire
+            if (state.IsExecutingMovement && state.CurrentMovementType != NPCMovementType.Talk)
+            {
+                _currentStrategy = CreateStrategy(state.CurrentMovementType, state.CurrentParameters);
+                
+                if (_currentStrategy != null)
+                {
+                    onMovementStart.Invoke(_currentStrategy);
+                    _currentStrategy.StartMovement();
+                    StartCoroutine(WaitForMovementCompletion());
+                }
+            }
+        }
+
+        private NPCMovementType GetMovementTypeFromStrategy(MovementStrategy strategy)
+        {
+            if (strategy is MovementWalk) return NPCMovementType.Walk;
+            if (strategy is MovementWalkToLocation) return NPCMovementType.WalkToLocation;
+            if (strategy is MovementTalk) return NPCMovementType.Talk;
+            if (strategy is MovementLookAtTarget) return NPCMovementType.LookAtTarget;
+            if (strategy is MovementYell) return NPCMovementType.Yell;
+            if (strategy is MovementSwim) return NPCMovementType.Swim;
+            if (strategy is MovementDance) return NPCMovementType.Dance;
+            return NPCMovementType.Talk;
+        }
+
+        private MovementParameters GetParametersFromStrategy(MovementStrategy strategy)
+        {
+            MovementParameters parameters = new MovementParameters();
+            
+            // Récupérer les paramètres de base en fonction du type
+            // Vous pouvez simplifier cette partie si vous n'avez pas besoin
+            // de tous les paramètres pour le rewind
+            
+            return parameters;
+        }
+
+        
     }
 
-// Classe pour représenter une commande de mouvement
+    // Classe pour représenter une commande de mouvement
     [System.Serializable]
     public class MovementCommand
     {
@@ -179,7 +254,7 @@ namespace NPC.NPCMovement
         }
     }
 
-// Classe pour stocker tous les paramètres possibles
+    // Classe pour stocker tous les paramètres possibles
     [System.Serializable]
     public class MovementParameters
     {
@@ -187,5 +262,15 @@ namespace NPC.NPCMovement
         public AudioClip audioClip;
         public float duration = 3f;
         public float speed = 1f;
+    }
+    
+    // Ajoutez cette classe quelque part dans votre code
+    [System.Serializable]
+    public class MovementState
+    {
+        public bool IsExecutingMovement;
+        public List<MovementCommand> PendingMovements = new List<MovementCommand>();
+        public NPCMovementType CurrentMovementType = NPCMovementType.Talk;
+        public MovementParameters CurrentParameters = new MovementParameters();
     }
 }

@@ -69,9 +69,7 @@ public class ModularTimeRewindable : MonoBehaviour, ITimeRewindable
 
     [Serializable] private class NPCMovementSnapshot
     {
-        public int     currentIndex;
-        public float[] startTimes;
-        public bool[]  wasLaunched;
+        public MovementState state;
     }
 
     private class TimeState
@@ -334,17 +332,19 @@ public class ModularTimeRewindable : MonoBehaviour, ITimeRewindable
     /* ---- NPCMovement helpers ---- */
     private NPCMovementSnapshot CaptureNPCSnapshot()
     {
+        if (_mgr == null) return null;
+    
         return new NPCMovementSnapshot
         {
-            // currentIndex = _mgr.CurrentIndex,
-            // startTimes   = _npcMgr.Movements.Select(m => m.TimeToStart).ToArray(),
-            // wasLaunched  = _npcMgr.Movements.Select(m => m.launched).ToArray()
+            state = _mgr.GetCurrentState()
         };
     }
 
     private void ApplyNPCSnapshot(NPCMovementSnapshot snap)
     {
-        // _npcMgr?.ForceState(snap.currentIndex, snap.startTimes, snap.wasLaunched);
+        if (_mgr == null || snap == null || snap.state == null) return;
+    
+        _mgr.RestoreState(snap.state);
     }
 
 
