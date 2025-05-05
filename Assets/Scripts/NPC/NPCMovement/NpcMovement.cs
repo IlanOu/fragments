@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using NPC.NPCMovement.Strategy;
 using UnityEngine;
@@ -192,27 +193,36 @@ namespace NPC.NPCMovement
         public void RestoreState(MovementState state)
         {
             if (state == null) return;
-            
+    
+            Debug.Log($"Restoring state for NPC {gameObject.name}: IsExecuting={state.IsExecutingMovement}, MovementType={state.CurrentMovementType}, PendingCount={state.PendingMovements.Count}");
+    
             // Arrêter tous les mouvements en cours
             StopAllMovements();
-            
+    
             // Restaurer l'état
             _isExecutingMovement = state.IsExecutingMovement;
             _pendingMovements = new Queue<MovementCommand>(state.PendingMovements);
-            
+    
             // Restaurer la stratégie actuelle si nécessaire
-            if (state.IsExecutingMovement && state.CurrentMovementType != NPCMovementType.Talk)
+            if (state.IsExecutingMovement)
             {
                 _currentStrategy = CreateStrategy(state.CurrentMovementType, state.CurrentParameters);
-                
+        
                 if (_currentStrategy != null)
                 {
+                    Debug.Log($"Restoring strategy {state.CurrentMovementType} for NPC {gameObject.name}");
                     onMovementStart.Invoke(_currentStrategy);
                     _currentStrategy.StartMovement();
                     StartCoroutine(WaitForMovementCompletion());
                 }
+                else
+                {
+                    Debug.LogWarning($"Failed to create strategy {state.CurrentMovementType} for NPC {gameObject.name}");
+                }
             }
         }
+
+
 
         private NPCMovementType GetMovementTypeFromStrategy(MovementStrategy strategy)
         {
@@ -230,12 +240,62 @@ namespace NPC.NPCMovement
         {
             MovementParameters parameters = new MovementParameters();
             
-            // Récupérer les paramètres de base en fonction du type
-            // Vous pouvez simplifier cette partie si vous n'avez pas besoin
-            // de tous les paramètres pour le rewind
+            try
+            {
+                if (strategy is TalkStrategy)
+                {
+                    var field = strategy.GetType().GetField("clip", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    if (field != null)
+                        parameters.audioClip = field.GetValue(strategy) as AudioClip;
+                }
+                else if (strategy is WalkStrategy)
+                {
+                    var speedField = strategy.GetType().GetField("speed", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    var durationField = strategy.GetType().GetField("duration", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    
+                    if (speedField != null)
+                        parameters.speed = (float)speedField.GetValue(strategy);
+                    if (durationField != null)
+                        parameters.duration = (float)durationField.GetValue(strategy);
+                }
+                else if (strategy is WalkToLocationStrategy)
+                {
+                    var targetField = strategy.GetType().GetField("_targetLoc", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    if (targetField != null)
+                        parameters.targetObject = targetField.GetValue(strategy) as GameObject;
+                }
+                else if (strategy is LookAtTargetStrategy)
+                {
+                    var targetField = strategy.GetType().GetField("_target", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    var durationField = strategy.GetType().GetField("_duration", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    
+                    if (targetField != null)
+                        parameters.targetObject = targetField.GetValue(strategy) as GameObject;
+                    if (durationField != null)
+                        parameters.duration = (float)durationField.GetValue(strategy);
+                }
+                else if (strategy is DanceStrategy || strategy is SwimStrategy)
+                {
+                    var durationField = strategy.GetType().GetField("duration", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    if (durationField != null)
+                        parameters.duration = (float)durationField.GetValue(strategy);
+                }
+                else if (strategy is YellStrategy)
+                {
+                    var clipField = strategy.GetType().GetField("clip", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    if (clipField != null)
+                        parameters.audioClip = clipField.GetValue(strategy) as AudioClip;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"Error extracting parameters from strategy: {e.Message}");
+            }
             
             return parameters;
         }
+
+
 
         
     }

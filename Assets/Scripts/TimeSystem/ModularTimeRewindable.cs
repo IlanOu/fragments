@@ -333,17 +333,21 @@ public class ModularTimeRewindable : MonoBehaviour, ITimeRewindable
     private NPCMovementSnapshot CaptureNPCSnapshot()
     {
         if (_mgr == null) return null;
-    
+        
+        var state = _mgr.GetCurrentState();
+        Debug.Log($"Capturing NPC state for {gameObject.name}: IsExecuting={state.IsExecutingMovement}, MovementType={state.CurrentMovementType}");
+        
         return new NPCMovementSnapshot
         {
-            state = _mgr.GetCurrentState()
+            state = state
         };
     }
 
     private void ApplyNPCSnapshot(NPCMovementSnapshot snap)
     {
         if (_mgr == null || snap == null || snap.state == null) return;
-    
+        
+        Debug.Log($"Applying NPC snapshot to {gameObject.name}: IsExecuting={snap.state.IsExecutingMovement}, MovementType={snap.state.CurrentMovementType}");
         _mgr.RestoreState(snap.state);
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
@@ -49,6 +50,8 @@ public class TimeRewindManager : MonoBehaviour
     public float RecordingTime => _recordingTime;
     public float CurrentPlaybackTime => _currentPlaybackTime;
     public bool IsRewinding => _isRewinding;
+    
+    public event Action<float> OnRewindComplete;
     
     private void Awake()
     {
@@ -209,23 +212,27 @@ public class TimeRewindManager : MonoBehaviour
         _isRewinding = false;
         _jogVelocity = 0f; // Réinitialiser la vitesse du jog
         _isJogging = false;
-        
+    
         // IMPORTANT: Truncate history at resume point
         float oldRecordingTime = _recordingTime;
         _recordingTime = _currentPlaybackTime;
-        
+    
         // Inform all objects to truncate their history
         foreach (ITimeRewindable obj in _rewindableObjects)
         {
             if (obj != null)
                 obj.TruncateHistoryAfter(_currentPlaybackTime);
         }
-        
+    
         // Reset recording time to avoid jumps
         _lastRecordTime = _recordingTime;
-        
+    
         Debug.Log("Rewind mode deactivated. Resuming recording from T=" + _recordingTime);
+    
+        // Notifier que le rewind est terminé
+        CompleteRewind(_currentPlaybackTime);
     }
+
     
     /// <summary>
     /// Process a subset of objects each frame in rewind mode
@@ -356,4 +363,13 @@ public class TimeRewindManager : MonoBehaviour
         _currentPlaybackTime = 0f;
         _lastRecordTime = 0f;
     }
+    
+    private void CompleteRewind(float rewindTime)
+    {
+        // Autres opérations de fin de rewind...
+        
+        // Déclencher l'événement
+        OnRewindComplete?.Invoke(rewindTime);
+    }
+
 }
