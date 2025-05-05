@@ -2,12 +2,12 @@ using UnityEngine;
 
 namespace NPC.NPCMovement.Strategy
 {
-    class MovementWalkToLocation : MovementStrategy
+    class WalkToLocationStrategy : MovementStrategy
     {
         private readonly GameObject _targetLoc;
         private bool launched = false;
 
-        public MovementWalkToLocation(GameObject NPC, GameObject targetLocation)
+        public WalkToLocationStrategy(GameObject NPC, GameObject targetLocation)
             : base(NPC)
         {
             _targetLoc = targetLocation;

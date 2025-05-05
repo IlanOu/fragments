@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace NPC.NPCMovement
 {
-    public class Movement : MonoBehaviour
+    public class NpcMovement : MonoBehaviour
     {
         public NavMeshAgent MainAgent { get; private set; }
         private bool _isExecutingMovement = false;
@@ -96,14 +96,14 @@ namespace NPC.NPCMovement
             switch (movementType)
             {
                 case NPCMovementType.Talk:
-                    return new MovementTalk(gameObject, parameters.audioClip);
+                    return new TalkStrategy(gameObject, parameters.audioClip);
                 
                 case NPCMovementType.Walk:
-                    return new MovementWalk(gameObject, parameters.speed, parameters.duration);
+                    return new WalkStrategy(gameObject, parameters.speed, parameters.duration);
                 
                 case NPCMovementType.WalkToLocation:
                     if (parameters.targetObject != null)
-                        return new MovementWalkToLocation(gameObject, parameters.targetObject);
+                        return new WalkToLocationStrategy(gameObject, parameters.targetObject);
                     else
                     {
                         Debug.LogWarning("WalkToLocation nécessite un objet cible");
@@ -112,7 +112,7 @@ namespace NPC.NPCMovement
                 
                 case NPCMovementType.LookAtTarget:
                     if (parameters.targetObject != null)
-                        return new MovementLookAtTarget(gameObject, parameters.targetObject, parameters.duration);
+                        return new LookAtTargetStrategy(gameObject, parameters.targetObject, parameters.duration);
                     else
                     {
                         Debug.LogWarning("LookAtTarget nécessite un objet cible");
@@ -120,13 +120,13 @@ namespace NPC.NPCMovement
                     }
                 
                 case NPCMovementType.Dance:
-                    return new MovementDance(gameObject, parameters.duration);
+                    return new DanceStrategy(gameObject, parameters.duration);
                 
                 case NPCMovementType.Yell:
-                    return new MovementYell(gameObject, parameters.audioClip);
+                    return new YellStrategy(gameObject, parameters.audioClip);
                 
                 case NPCMovementType.Swim:
-                    return new MovementSwim(gameObject, parameters.duration);
+                    return new SwimStrategy(gameObject, parameters.duration);
                 
                 default:
                     Debug.LogWarning($"Type de mouvement non pris en charge: {movementType}");
@@ -216,13 +216,13 @@ namespace NPC.NPCMovement
 
         private NPCMovementType GetMovementTypeFromStrategy(MovementStrategy strategy)
         {
-            if (strategy is MovementWalk) return NPCMovementType.Walk;
-            if (strategy is MovementWalkToLocation) return NPCMovementType.WalkToLocation;
-            if (strategy is MovementTalk) return NPCMovementType.Talk;
-            if (strategy is MovementLookAtTarget) return NPCMovementType.LookAtTarget;
-            if (strategy is MovementYell) return NPCMovementType.Yell;
-            if (strategy is MovementSwim) return NPCMovementType.Swim;
-            if (strategy is MovementDance) return NPCMovementType.Dance;
+            if (strategy is WalkStrategy) return NPCMovementType.Walk;
+            if (strategy is WalkToLocationStrategy) return NPCMovementType.WalkToLocation;
+            if (strategy is TalkStrategy) return NPCMovementType.Talk;
+            if (strategy is LookAtTargetStrategy) return NPCMovementType.LookAtTarget;
+            if (strategy is YellStrategy) return NPCMovementType.Yell;
+            if (strategy is SwimStrategy) return NPCMovementType.Swim;
+            if (strategy is DanceStrategy) return NPCMovementType.Dance;
             return NPCMovementType.Talk;
         }
 

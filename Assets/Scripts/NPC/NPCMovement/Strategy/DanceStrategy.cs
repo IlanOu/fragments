@@ -4,16 +4,16 @@ using UnityEngine;
 
 namespace NPC.NPCMovement.Strategy
 {
-    class MovementSwim : MovementStrategy
+    class DanceStrategy : MovementStrategy
     {
-        private readonly float swimDuration;
+        private readonly float danceDuration;
         private float timer = 0f;
         private bool launched = false;
 
-        public MovementSwim(GameObject NPC, float duration = 3f)
+        public DanceStrategy(GameObject NPC, float duration = 3f)
             : base(NPC)
         {
-            swimDuration = duration;
+            danceDuration = duration;
         }
 
         public override void StartMovement()
@@ -31,9 +31,10 @@ namespace NPC.NPCMovement.Strategy
 
                 timer += Time.deltaTime;
 
-                if (timer >= swimDuration)
+                if (timer >= danceDuration)
                 {
                     launched = false;
+
                     return true;
                 }
                 return false;

@@ -3,14 +3,14 @@ using UnityEngine.AI;
 
 namespace NPC.NPCMovement.Strategy
 {
-    class MovementWalk : MovementStrategy
+    class WalkStrategy : MovementStrategy
     {
         private readonly float _min;
         private readonly float _max;
         private Vector3 targetPos;
         private bool hasStarted = false;
 
-        public MovementWalk(GameObject NPC,
+        public WalkStrategy(GameObject NPC,
             float minWander,
             float maxWander)
             : base(NPC)

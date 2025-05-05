@@ -13,34 +13,53 @@ public class ActionDirector : MonoBehaviour
     }
     
     [SerializeField] private List<MovementStep> movementSequence = new List<MovementStep>();
+    [SerializeField] private float detectionRadius = 2f; // Rayon de détection des NPCs
+    
+    private HashSet<NpcMovement> processedNPCs = new HashSet<NpcMovement>();
     
     private void Start()
     {
-        // // Vérifier les NPCs déjà présents
-        // Collider[] colliders = Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents);
-        // foreach (Collider col in colliders)
-        // {
-        //     Movement npc = col.GetComponent<Movement>();
-        //     if (npc != null)
-        //     {
-        //         TriggerMovements(npc);
-        //     }
-        // }
+        // Vérifier les NPCs déjà présents au démarrage
+        CheckForNPCs();
     }
     
-    private void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        Debug.Log("ON triugger");
-        Movement npc = other.GetComponent<Movement>();
-        if (npc != null)
+        // Vérifier périodiquement les NPCs
+        CheckForNPCs();
+    }
+    
+    private void CheckForNPCs()
+    {
+        // Trouver tous les NPCs dans la scène
+        NpcMovement[] allNPCs = FindObjectsOfType<NpcMovement>();
+        
+        Debug.Log($"Found {allNPCs.Length} NPCs in scene");
+        
+        foreach (NpcMovement npc in allNPCs)
         {
-            TriggerMovements(npc);
+            float distance = Vector3.Distance(npc.transform.position, transform.position);
+            
+            Debug.Log($"NPC {npc.name} at distance {distance}, radius {detectionRadius}");
+            
+            // Si le NPC est dans la zone et n'a pas encore été traité
+            if (distance <= detectionRadius && !processedNPCs.Contains(npc))
+            {
+                Debug.Log($"Triggering movements for NPC {npc.name}");
+                TriggerMovements(npc);
+                processedNPCs.Add(npc);
+            }
+            // Si le NPC est sorti de la zone
+            else if (distance > detectionRadius && processedNPCs.Contains(npc))
+            {
+                Debug.Log($"NPC {npc.name} left the zone");
+                processedNPCs.Remove(npc);
+            }
         }
     }
     
-    private void TriggerMovements(Movement npc)
+    private void TriggerMovements(NpcMovement npc)
     {
-        Debug.Log("TriggerMovements");
         // Créer les commandes
         MovementCommand[] commands = new MovementCommand[movementSequence.Count];
         for (int i = 0; i < movementSequence.Count; i++)
@@ -51,5 +70,12 @@ public class ActionDirector : MonoBehaviour
         
         // Exécuter la séquence
         npc.QueueMovementSequence(commands);
+    }
+    
+    // Visualiser la zone de détection dans l'éditeur
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 }

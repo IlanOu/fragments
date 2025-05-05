@@ -23,7 +23,7 @@ public class ModularTimeRewindable : MonoBehaviour, ITimeRewindable
     [Header("Overrides")]
     [SerializeField] private NavMeshAgent       navMeshOverride;
     [SerializeField] private Animator           animatorOverride;
-    [FormerlySerializedAs("npcMovementOverride")] [SerializeField] private Movement movementOverride;
+    [FormerlySerializedAs("movementOverride")] [SerializeField] private NpcMovement npcMovementOverride;
 
     /* ================== Sélection des modules à suivre ================== */
     [Header("Modules à enregistrer")]
@@ -88,7 +88,7 @@ public class ModularTimeRewindable : MonoBehaviour, ITimeRewindable
     // caches
     private NavMeshAgent _agent;
     private Animator _animator;
-    private Movement _mgr;
+    private NpcMovement _mgr;
 
     // cache pour l'enregistrement adaptatif
     private Vector3    lastPos;
@@ -111,9 +111,9 @@ public class ModularTimeRewindable : MonoBehaviour, ITimeRewindable
                         GetComponentInChildren<Animator>();
 
         if (Has(RewindModules.NPCMovement))
-            _mgr = movementOverride ??
-                      GetComponent<Movement>() ??
-                      GetComponentInChildren<Movement>();
+            _mgr = npcMovementOverride ??
+                      GetComponent<NpcMovement>() ??
+                      GetComponentInChildren<NpcMovement>();
     }
 
     private void OnEnable()  => TimeRewindManager.Instance?.RegisterRewindableObject(this);

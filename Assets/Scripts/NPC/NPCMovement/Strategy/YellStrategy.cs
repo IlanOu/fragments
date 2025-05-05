@@ -2,27 +2,27 @@ using UnityEngine;
 
 namespace NPC.NPCMovement.Strategy
 {
-    class MovementTalk : MovementStrategy
+    class YellStrategy : MovementStrategy
     {
         private readonly AudioClip clip;
         private AudioSource source;
         private bool launched;
         private bool finished;
 
-        public MovementTalk(GameObject NPC, AudioClip clip)
+        public YellStrategy(GameObject NPC, AudioClip clip)
             : base(NPC) => this.clip = clip;
 
         public override void StartMovement()
         {
             if (launched) return;
             launched = true;
-        
+
             // Lecture audio
             source = NPC.GetComponent<AudioSource>();
             if (source == null) source = NPC.AddComponent<AudioSource>();
 
             if (clip != null) source.PlayOneShot(clip);
-            else              finished = true;                   // pas de son → fin immédiate
+            else              finished = true;
         }
 
         public override bool IsDone

@@ -675,8 +675,8 @@ GameObject:
   - component: {fileID: 6763161909288186660}
   - component: {fileID: 7837145771932963002}
   - component: {fileID: 8989580702364954282}
-  - component: {fileID: 7568836782147728488}
-  m_Layer: 0
+  - component: {fileID: 177680766679096405}
+  m_Layer: 7
   m_Name: new NPC
   m_TagString: NPC
   m_Icon: {fileID: 0}
@@ -691,7 +691,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3225174873463678900}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.41, y: 0.38, z: -5.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -709,13 +709,13 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 0.5
-  m_Acceleration: 5
+  m_Speed: 0.7
+  m_Acceleration: 7
   avoidancePriority: 50
   m_AngularSpeed: 400
-  m_StoppingDistance: 0.1
+  m_StoppingDistance: 0.5
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1.7
   m_BaseOffset: 0
@@ -753,24 +753,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d1f5c4f15034ed89f705709ae8c8ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcMovements:
-  - npcMovementType: 3
-    TimeToStart: 3
-    launched: 0
-    Manager: {fileID: 0}
-    Enabled: 0
-    targetNpc: {fileID: 0}
-    distance: 2
-    lookTarget: {fileID: 0}
-    minWanderDistance: 0
-    maxWanderDistance: 0
-    targetLocation: {fileID: 0}
-    talkClip: {fileID: 0}
-    lookAtTarget: {fileID: 0}
-    lookAtDuration: 2
-    yellClip: {fileID: 0}
-    delayAfterPrevious: 0
---- !u!114 &7568836782147728488
+  onMovementStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onMovementEnd:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &177680766679096405
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -779,32 +768,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3225174873463678900}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff902ed0df8c44359f1a990b16b66a7d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5320c82dd4814dcd9ead1dbba4fa6b53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationConfigs:
-  - animationType: 1
-    animatorParameterName: Walking
-    useTriggerInsteadOfBool: 0
-  - animationType: 3
-    animatorParameterName: Talking
-    useTriggerInsteadOfBool: 0
-  - animationType: 2
-    animatorParameterName: Idle
-    useTriggerInsteadOfBool: 0
-  - animationType: 0
-    animatorParameterName: Dancing
-    useTriggerInsteadOfBool: 0
-  - animationType: 4
-    animatorParameterName: Talking
-    useTriggerInsteadOfBool: 0
-  - animationType: 5
-    animatorParameterName: Yelling
-    useTriggerInsteadOfBool: 0
-  - animationType: 6
-    animatorParameterName: Swimming
-    useTriggerInsteadOfBool: 0
-  animator: {fileID: 7339479362294093831}
+  childAnimator: {fileID: 7339479362294093831}
+  idleAnimationName: Idle
+  walkAnimationName: Walk
+  talkAnimationName: Talk
+  yellAnimationName: Yell
+  swimAnimationName: Swim
+  danceAnimationName: Dance
+  lookAtAnimationName: Idle
+  transitionDuration: 0.25
 --- !u!1 &3380120349444501053
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace NPC.NPCMovement.Strategy
 {
-    class MovementLookAtTarget : MovementStrategy
+    class LookAtTargetStrategy : MovementStrategy
     {
         private readonly GameObject target;
         private readonly float holdDuration;
@@ -10,7 +10,7 @@ namespace NPC.NPCMovement.Strategy
         private float timer;
         private bool launched;
 
-        public MovementLookAtTarget(GameObject NPC,
+        public LookAtTargetStrategy(GameObject NPC,
             GameObject target,
             float duration)
             : base(NPC)
