@@ -48,8 +48,7 @@ public class NPCMovementManager : MonoBehaviour
         }
     }
 
-
-    /* ─────────────────── API utilisée par le Rewind ─────────────────── */
+    
     public void ForceState(int index, float[] startTimes, bool[] launched)
     {
         CurrentIndex = Mathf.Clamp(index, 0, npcMovements.Count - 1);
@@ -59,9 +58,5 @@ public class NPCMovementManager : MonoBehaviour
             if (i < startTimes.Length)  npcMovements[i].TimeToStart = startTimes[i];
             if (i < launched.Length)    npcMovements[i].launched = launched[i];
         }
-
-        // Optionnel : remettre l'agent dans un état cohérent.
-        // Exemple :
-        // MainAgent.ResetPath();
     }
 }

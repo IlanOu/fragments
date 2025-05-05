@@ -6,15 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="bec0d240-2773-43da-a415-54460ae7df48" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.fragments/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.fragments/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/UI/SoundFrequencies/focused.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/UI/SoundFrequencies/focused.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/UI/SoundFrequencies/unfocused.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/UI/SoundFrequencies/unfocused.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/UI/SoundFrequencies/validation.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/UI/SoundFrequencies/validation.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/PlayScene_1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/PlayScene_1.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/PlayScene_1/NavMesh-sol 3.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/PlayScene_1/NavMesh-sol 3.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/PlayScene_1/NavMesh-sol 3.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/PlayScene_1/NavMesh-sol 3.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio/UISoundFrequency.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Audio/UISoundFrequency.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TimeSystem/ModularTimeRewindable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TimeSystem/ModularTimeRewindable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/NavMeshAreas.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/NavMeshAreas.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/NPCMovementManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/NPCMovementManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/NPCMovementManager.cs~" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +42,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "com.codeium.enabled": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "zones",
     "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",

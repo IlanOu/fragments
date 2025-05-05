@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5cf9c192a658d2a4a80e3a1c377b24b5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 302522
+  packageName: Inspector Enhancements
+  packageVersion: 1.0.2
+  assetPath: Assets/Nenn/InspectorEnhancements/Demo/Scripts/Preview/Required/R_Example2.cs
+  uploadId: 716978

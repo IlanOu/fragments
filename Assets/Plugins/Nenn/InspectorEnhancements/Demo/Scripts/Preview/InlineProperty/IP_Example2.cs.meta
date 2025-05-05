@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: bd06779ed89ff454c9a0eabe5211988b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 302522
+  packageName: Inspector Enhancements
+  packageVersion: 1.0.2
+  assetPath: Assets/Nenn/InspectorEnhancements/Demo/Scripts/Preview/InlineProperty/IP_Example2.cs
+  uploadId: 716978

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: fc44e5fbfbb21084b9971d604725a228
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 302522
+  packageName: Inspector Enhancements
+  packageVersion: 1.0.2
+  assetPath: Assets/Nenn/InspectorEnhancements/Runtime/Attributes/Conditional/HideIfAttribute.cs
+  uploadId: 716978

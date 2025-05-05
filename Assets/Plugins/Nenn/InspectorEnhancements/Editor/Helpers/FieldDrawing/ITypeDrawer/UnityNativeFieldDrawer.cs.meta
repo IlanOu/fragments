@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 3ca3fd2d01c89084fa27fc3db94b844b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 302522
+  packageName: Inspector Enhancements
+  packageVersion: 1.0.2
+  assetPath: Assets/Nenn/InspectorEnhancements/Editor/Helpers/FieldDrawing/ITypeDrawer/UnityNativeFieldDrawer.cs
+  uploadId: 716978
