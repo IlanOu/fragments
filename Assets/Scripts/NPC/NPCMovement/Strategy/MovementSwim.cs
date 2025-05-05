@@ -1,52 +1,43 @@
 /* ------------------ NPCMovementDance ------------------ */
+
 using UnityEngine;
-using NPC.NPCAnimations;
 
-
-class MovementSwim : MovementStrategy
+namespace NPC.NPCMovement.Strategy
 {
-    private readonly float swimDuration;
-    private float timer = 0f;
-    private bool launched = false;
-
-    public MovementSwim(GameObject NPC, float duration = 3f)
-        : base(NPC)
+    class MovementSwim : MovementStrategy
     {
-        swimDuration = duration;
-    }
+        private readonly float swimDuration;
+        private float timer = 0f;
+        private bool launched = false;
 
-    public override void StartMovement()
-    {
-        if (launched) return;
-        launched = true;
-        timer = 0f;
-
-        // Bool ON
-        NPCAnimBus.Bool(NPC,
-            NPCAnimationsType.Swim,
-            true);
-    }
-
-    public override bool IsDone
-    {
-        get
+        public MovementSwim(GameObject NPC, float duration = 3f)
+            : base(NPC)
         {
-            if (!launched) return false;
+            swimDuration = duration;
+        }
 
-            timer += Time.deltaTime;
+        public override void StartMovement()
+        {
+            if (launched) return;
+            launched = true;
+            timer = 0f;
+        }
 
-            if (timer >= swimDuration)
+        public override bool IsDone
+        {
+            get
             {
-                launched = false;
+                if (!launched) return false;
 
-                // Bool OFF  <--  C’était la ligne manquante
-                NPCAnimBus.Bool(NPC,
-                    NPCAnimationsType.Swim,
-                    false);
+                timer += Time.deltaTime;
 
-                return true;
+                if (timer >= swimDuration)
+                {
+                    launched = false;
+                    return true;
+                }
+                return false;
             }
-            return false;
         }
     }
 }

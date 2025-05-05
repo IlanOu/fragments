@@ -1,16 +1,19 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class MovementStrategy : IMovementStrategy
+namespace NPC.NPCMovement.Strategy
 {
-    protected readonly GameObject NPC;
-    protected NavMeshAgent MainAgent => NPC.GetComponentInChildren<NavMeshAgent>();
-
-    protected MovementStrategy(GameObject NPC)
+    public abstract class MovementStrategy : IMovementStrategy
     {
-        this.NPC = NPC;
-    }
+        protected readonly GameObject NPC;
+        protected NavMeshAgent MainAgent => NPC.GetComponentInChildren<NavMeshAgent>();
 
-    public abstract void StartMovement();
-    public abstract bool IsDone { get; }
+        protected MovementStrategy(GameObject NPC)
+        {
+            this.NPC = NPC;
+        }
+
+        public abstract void StartMovement();
+        public abstract bool IsDone { get; }
+    }
 }

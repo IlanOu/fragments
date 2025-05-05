@@ -1,49 +1,44 @@
 using UnityEngine;
-using NPC.NPCAnimations;
 
-class MovementYell : MovementStrategy
+namespace NPC.NPCMovement.Strategy
 {
-    private readonly AudioClip clip;
-    private AudioSource source;
-    private bool launched;
-    private bool finished;
-
-    public MovementYell(GameObject NPC, AudioClip clip)
-        : base(NPC) => this.clip = clip;
-
-    public override void StartMovement()
+    class MovementYell : MovementStrategy
     {
-        if (launched) return;
-        launched = true;
+        private readonly AudioClip clip;
+        private AudioSource source;
+        private bool launched;
+        private bool finished;
 
-        // Animation ON
-        NPCAnimBus.Bool(NPC,
-            NPCAnimationsType.Yell, true);
+        public MovementYell(GameObject NPC, AudioClip clip)
+            : base(NPC) => this.clip = clip;
 
-        // Lecture audio
-        source = NPC.GetComponent<AudioSource>();
-        if (source == null) source = NPC.AddComponent<AudioSource>();
-
-        if (clip != null) source.PlayOneShot(clip);
-        else              finished = true;
-    }
-
-    public override bool IsDone
-    {
-        get
+        public override void StartMovement()
         {
-            if (finished) return true;
-            if (!launched) return false;
+            if (launched) return;
+            launched = true;
 
-            bool audioDone = (source == null) || !source.isPlaying;
-            if (audioDone)
+            // Lecture audio
+            source = NPC.GetComponent<AudioSource>();
+            if (source == null) source = NPC.AddComponent<AudioSource>();
+
+            if (clip != null) source.PlayOneShot(clip);
+            else              finished = true;
+        }
+
+        public override bool IsDone
+        {
+            get
             {
-                // Animation OFF
-                NPCAnimBus.Bool(NPC,
-                    NPCAnimationsType.Yell, false);
-                finished = true;
+                if (finished) return true;
+                if (!launched) return false;
+
+                bool audioDone = (source == null) || !source.isPlaying;
+                if (audioDone)
+                {
+                    finished = true;
+                }
+                return finished;
             }
-            return finished;
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NPC.NPCMovement;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;

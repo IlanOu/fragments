@@ -5,49 +5,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bec0d240-2773-43da-a415-54460ae7df48" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Movement.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Zones.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Zones/ActionDirector.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Zones/ActionDirector.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Animation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Animation.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.fragments/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.fragments/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/DancingBot.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/DancingBot.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/X Bot@Dancing.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/X Bot@Dancing.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/X Bot@Drunk Idle Variation.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/X Bot@Drunk Idle Variation.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/X Bot@Drunk Walk.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/X Bot@Drunk Walk.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/X Bot@Standing Arguing.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/X Bot@Standing Arguing.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/X Bot@Swimming.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/X Bot@Swimming.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/X Bot@Talking.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/X Bot@Talking.fbx.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/PlayScene_1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/PlayScene_1.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Editor.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Editor/NPCMovementDrawer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Editor/NPCMovementDrawer.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/NPCAnimationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/NPCAnimationManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/NPCAnimationManager.cs~" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Strategy/NPCDanceAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Strategy/NPCDanceAnimation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Strategy/NPCTalkAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Strategy/NPCTalkAnimation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Strategy/NPCWalkAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Strategy/NPCWalkAnimation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/NPCMovement.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/NPCMovement.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/NPCMovementManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/NPCMovementManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Movement.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/NPCMovementType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/MovementType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/NPCMovementType.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/MovementType.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/INPCMovementStrategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/IMovementStrategy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/INPCMovementStrategy.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/IMovementStrategy.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementApproachToNPC.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementApproachToNPC.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementDance.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementDance.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementDance.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementDance.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementDance.cs~" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementLookAtTarget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementLookAtTarget.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementLookAtTarget.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementLookAtTarget.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementStrategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementStrategy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementStrategy.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementStrategy.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementSwim.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementSwim.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementSwim.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementSwim.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementTalk.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementTalk.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementTalk.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementTalk.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementWalk.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementWalk.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementWalk.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementWalk.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementWalk.cs~" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementWalkToLocation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementWalkToLocation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementWalkToLocation.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementWalkToLocation.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementYell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementYell.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/NPCMovementYell.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementYell.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TimeSystem/ModularTimeRewindable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TimeSystem/ModularTimeRewindable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/NPCAnimBus.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/NPCAnimBus.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/NPCAnimationManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/NPCAnimationManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/NPCAnimationType.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/NPCAnimationType.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Strategy.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Strategy/INPCAnimationStrategy.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Strategy/INPCAnimationStrategy.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Strategy/NPCDanceAnimation.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Strategy/NPCDanceAnimation.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Strategy/NPCTalkAnimation.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Strategy/NPCTalkAnimation.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Strategy/NPCWalkAnimation.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Strategy/NPCWalkAnimation.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementDance.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementDance.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementLookAtTarget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementLookAtTarget.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementSwim.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementSwim.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementTalk.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementTalk.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementWalk.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementWalk.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementWalk.cs~" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementWalkToLocation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementWalkToLocation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementYell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Strategy/MovementYell.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +56,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b5bf0c891ea345fe93688f835df32fdc1dda00/cd/32a03471/PropertyAttribute.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/NPC/NPCAnimations/Animation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/NPC/NPCMovement/Movement.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TimeSystem/ModularTimeRewindable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline/Runtime/TimelinePlayable.cs" root0="SKIP_HIGHLIGHTING" />

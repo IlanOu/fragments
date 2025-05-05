@@ -1,51 +1,44 @@
 /* ------------------ NPCMovementDance ------------------ */
+
 using UnityEngine;
-using NPC.NPCAnimations;
 
-class MovementDance : MovementStrategy
+namespace NPC.NPCMovement.Strategy
 {
-    private readonly float danceDuration;
-    private float timer = 0f;
-    private bool launched = false;
-
-    public MovementDance(GameObject NPC, float duration = 3f)
-        : base(NPC)
+    class MovementDance : MovementStrategy
     {
-        danceDuration = duration;
-    }
+        private readonly float danceDuration;
+        private float timer = 0f;
+        private bool launched = false;
 
-    public override void StartMovement()
-    {
-        if (launched) return;
-        launched = true;
-        timer = 0f;
-
-        // Bool ON
-        NPCAnimBus.Bool(NPC,
-            NPCAnimationsType.Dance,
-            true);
-    }
-
-    public override bool IsDone
-    {
-        get
+        public MovementDance(GameObject NPC, float duration = 3f)
+            : base(NPC)
         {
-            if (!launched) return false;
+            danceDuration = duration;
+        }
 
-            timer += Time.deltaTime;
+        public override void StartMovement()
+        {
+            if (launched) return;
+            launched = true;
+            timer = 0f;
+        }
 
-            if (timer >= danceDuration)
+        public override bool IsDone
+        {
+            get
             {
-                launched = false;
+                if (!launched) return false;
 
-                // Bool OFF  <--  C’était la ligne manquante
-                NPCAnimBus.Bool(NPC,
-                    NPCAnimationsType.Dance,
-                    false);
+                timer += Time.deltaTime;
 
-                return true;
+                if (timer >= danceDuration)
+                {
+                    launched = false;
+
+                    return true;
+                }
+                return false;
             }
-            return false;
         }
     }
 }

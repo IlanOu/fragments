@@ -1,55 +1,40 @@
 using UnityEngine;
-using NPC.NPCAnimations;
 
-class MovementWalkToLocation : MovementStrategy
+namespace NPC.NPCMovement.Strategy
 {
-    private readonly GameObject _targetLoc;
-    private bool launched = false;
-
-    public MovementWalkToLocation(GameObject NPC, GameObject targetLocation)
-        : base(NPC)
+    class MovementWalkToLocation : MovementStrategy
     {
-        /*if (targetLocation == null)
+        private readonly GameObject _targetLoc;
+        private bool launched = false;
+
+        public MovementWalkToLocation(GameObject NPC, GameObject targetLocation)
+            : base(NPC)
         {
-            Debug.LogError("Target Location null"); 
-            NPC.enabled=false; 
-            return;
+            _targetLoc = targetLocation;
         }
 
-        if (!targetLocation.CompareTag("Location"))
+        public override void StartMovement()
         {
-            Debug.LogError("Target must be tagged Location"); 
-            NPC.enabled=false; 
-            return;
-        }*/
+            if (launched) return;
+            launched = true;
 
-        _targetLoc = targetLocation;
-    }
+            MainAgent.SetDestination(_targetLoc.transform.position);
+            MainAgent.stoppingDistance = 0f;
+        }
 
-    public override void StartMovement()
-    {
-        if (launched) return;
-        launched = true;
-
-        MainAgent.SetDestination(_targetLoc.transform.position);
-        MainAgent.stoppingDistance = 0f;
-
-        NPCAnimBus.Bool(NPC, NPCAnimationsType.Walk, true);
-    }
-
-    public override bool IsDone
-    {
-        get
+        public override bool IsDone
         {
-            bool finished = !MainAgent.pathPending &&
-                            MainAgent.remainingDistance <= MainAgent.stoppingDistance;
-
-            if (finished && launched)
+            get
             {
-                NPCAnimBus.Bool(NPC, NPCAnimationsType.Walk, false);
-                launched = false;
+                bool finished = !MainAgent.pathPending &&
+                                MainAgent.remainingDistance <= MainAgent.stoppingDistance;
+
+                if (finished && launched)
+                {
+                    launched = false;
+                }
+                return finished;
             }
-            return finished;
         }
     }
 }

@@ -2040,13 +2040,17 @@ PrefabInstance:
       propertyPath: _movementSequences.Array.data[0].movements.Array.size
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7568836782147728488, guid: 2a4539157ec2ba34aa8ee2d75a425543, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3225174873463678900, guid: 2a4539157ec2ba34aa8ee2d75a425543, type: 3}
       insertIndex: -1
       addedObject: {fileID: 128925044283936240}
+    - targetCorrespondingSourceObject: {fileID: 3225174873463678900, guid: 2a4539157ec2ba34aa8ee2d75a425543, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 128925044283936241}
   m_SourcePrefab: {fileID: 100100000, guid: 2a4539157ec2ba34aa8ee2d75a425543, type: 3}
 --- !u!114 &382857544 stripped
 MonoBehaviour:
@@ -2568,6 +2572,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514406494}
   m_Mesh: {fileID: 5294498611099232240, guid: 2cd36f51ff1a04d4e8136e2b87210e9f, type: 3}
+--- !u!95 &545417396 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7339479362294093831, guid: 2a4539157ec2ba34aa8ee2d75a425543, type: 3}
+  m_PrefabInstance: {fileID: 382857543}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &546638881
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5308,6 +5317,26 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: -0, y: 0.530756, z: -0}
+--- !u!114 &128925044283936241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709811111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5320c82dd4814dcd9ead1dbba4fa6b53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  childAnimator: {fileID: 545417396}
+  idleAnimationName: Idle
+  walkAnimationName: Walk
+  talkAnimationName: Talk
+  yellAnimationName: Yell
+  swimAnimationName: Swim
+  danceAnimationName: Dance
+  lookAtAnimationName: Idle
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

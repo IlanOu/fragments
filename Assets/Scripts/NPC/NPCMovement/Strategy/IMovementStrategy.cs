@@ -1,5 +1,8 @@
-public interface IMovementStrategy
+namespace NPC.NPCMovement.Strategy
 {
-    void StartMovement();
-    bool IsDone { get; }
+    public interface IMovementStrategy
+    {
+        void StartMovement();
+        bool IsDone { get; }
+    }
 }

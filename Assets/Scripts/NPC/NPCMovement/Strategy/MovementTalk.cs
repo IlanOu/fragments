@@ -1,51 +1,44 @@
-using Nenn.InspectorEnhancements.Runtime.Attributes.Conditional;
 using UnityEngine;
-using NPC.NPCAnimations;
-using UnityEngine.Timeline;
 
-class MovementTalk : MovementStrategy
+namespace NPC.NPCMovement.Strategy
 {
-    private readonly AudioClip clip;
-    private AudioSource source;
-    private bool launched;
-    private bool finished;
-
-    public MovementTalk(GameObject NPC, AudioClip clip)
-        : base(NPC) => this.clip = clip;
-
-    public override void StartMovement()
+    class MovementTalk : MovementStrategy
     {
-        if (launched) return;
-        launched = true;
+        private readonly AudioClip clip;
+        private AudioSource source;
+        private bool launched;
+        private bool finished;
 
-        // Animation ON
-        NPCAnimBus.Bool(NPC,
-            NPCAnimationsType.Talk, true);
+        public MovementTalk(GameObject NPC, AudioClip clip)
+            : base(NPC) => this.clip = clip;
 
-        // Lecture audio
-        source = NPC.GetComponent<AudioSource>();
-        if (source == null) source = NPC.AddComponent<AudioSource>();
-
-        if (clip != null) source.PlayOneShot(clip);
-        else              finished = true;                   // pas de son → fin immédiate
-    }
-
-    public override bool IsDone
-    {
-        get
+        public override void StartMovement()
         {
-            if (finished) return true;
-            if (!launched) return false;
+            if (launched) return;
+            launched = true;
+        
+            // Lecture audio
+            source = NPC.GetComponent<AudioSource>();
+            if (source == null) source = NPC.AddComponent<AudioSource>();
 
-            bool audioDone = (source == null) || !source.isPlaying;
-            if (audioDone)
+            if (clip != null) source.PlayOneShot(clip);
+            else              finished = true;                   // pas de son → fin immédiate
+        }
+
+        public override bool IsDone
+        {
+            get
             {
-                // Animation OFF
-                NPCAnimBus.Bool(NPC,
-                    NPCAnimationsType.Talk, false);
-                finished = true;
+                if (finished) return true;
+                if (!launched) return false;
+
+                bool audioDone = (source == null) || !source.isPlaying;
+                if (audioDone)
+                {
+                    finished = true;
+                }
+                return finished;
             }
-            return finished;
         }
     }
 }
