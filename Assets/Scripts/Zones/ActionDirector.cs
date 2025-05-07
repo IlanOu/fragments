@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NPC.NPCMovement;
 using UnityEngine;
 
@@ -15,7 +16,11 @@ public class ActionDirector : MonoBehaviour
     [SerializeField] private List<MovementStep> movementSequence = new List<MovementStep>();
     [SerializeField] private float detectionRadius = 2f; // Rayon de détection des NPCs
     
+    // Dictionnaire pour suivre les NPCs qui sont entrés dans la zone
     private Dictionary<NpcMovement, float> processedNPCs = new Dictionary<NpcMovement, float>();
+    
+    // Ensemble pour suivre les actions déjà déclenchées à des moments spécifiques
+    private HashSet<string> processedActions = new HashSet<string>();
     
     private void Start()
     {
@@ -24,9 +29,6 @@ public class ActionDirector : MonoBehaviour
         {
             TimeRewindManager.Instance.OnRewindComplete += OnRewindComplete;
         }
-        
-        // Vérifier les NPCs déjà présents au démarrage
-        CheckForNPCs();
     }
     
     private void OnDestroy()
@@ -38,7 +40,7 @@ public class ActionDirector : MonoBehaviour
         }
     }
     
-    private void OnRewindComplete(float rewindTime)
+        private void OnRewindComplete(float rewindTime)
     {
         Debug.Log($"Zone {gameObject.name}: Rewind complete to time {rewindTime}");
         
@@ -61,41 +63,74 @@ public class ActionDirector : MonoBehaviour
             processedNPCs.Remove(npc);
         }
         
-        // Vérifier à nouveau les NPCs après le rewind
-        CheckForNPCs();
+        // Réinitialiser les actions déclenchées après le temps de rewind
+        List<string> actionsToRemove = new List<string>();
+        
+        foreach (var actionKey in processedActions)
+        {
+            // Le format de la clé est "instanceID_startTime"
+            string[] parts = actionKey.Split('_');
+            if (parts.Length >= 2 && float.TryParse(parts[1], out float actionTime))
+            {
+                if (actionTime > rewindTime)
+                {
+                    actionsToRemove.Add(actionKey);
+                }
+            }
+        }
+        
+        foreach (var actionKey in actionsToRemove)
+        {
+            processedActions.Remove(actionKey);
+        }
     }
     
     private void Update()
     {
-        // Vérifier périodiquement les NPCs
-        CheckForNPCs();
-    }
-    
-    private void CheckForNPCs()
-    {
-        // Obtenir le temps actuel
+        // Obtenir le temps actuel de la timeline
         float currentTime = TimeRewindManager.Instance != null ? 
             (TimeRewindManager.Instance.IsRewinding ? TimeRewindManager.Instance.CurrentPlaybackTime : TimeRewindManager.Instance.RecordingTime) : 
             Time.time;
         
-        // Trouver tous les NPCs dans la scène
-        NpcMovement[] allNPCs = FindObjectsOfType<NpcMovement>();
+        // Vérifier les NPCs dans la zone
+        NpcMovement[] npcsInZone = GetNPCsInZone();
         
-        foreach (NpcMovement npc in allNPCs)
+        foreach (NpcMovement npc in npcsInZone)
         {
-            if (npc == null) continue;
+            // Pour chaque mouvement dans la séquence
+            foreach (var step in movementSequence)
+            {
+                // Si ce mouvement a un startTime défini et qu'on est à ce moment précis
+                if (step.parameters.startTime > 0 && Mathf.Abs(currentTime - step.parameters.startTime) < 0.1f)
+                {
+                    // Vérifier si ce NPC a déjà exécuté cette action à ce temps
+                    string actionKey = $"{npc.GetInstanceID()}_{step.parameters.startTime}";
+                    
+                    if (!processedActions.Contains(actionKey))
+                    {
+                        Debug.Log($"Zone {gameObject.name}: Triggering timed action {step.movementType} at time {step.parameters.startTime} for NPC {npc.name}");
+                        
+                        // Déclencher l'action
+                        TriggerSingleMovement(npc, step);
+                        
+                        // Marquer comme traitée
+                        processedActions.Add(actionKey);
+                    }
+                }
+            }
             
-            float distance = Vector3.Distance(npc.transform.position, transform.position);
-            
-            // Si le NPC est dans la zone et n'a pas encore été traité (ou a été réinitialisé par un rewind)
-            if (distance <= detectionRadius && !processedNPCs.ContainsKey(npc))
+            // Vérifier également si le NPC vient d'entrer dans la zone (comportement original)
+            if (!processedNPCs.ContainsKey(npc))
             {
                 Debug.Log($"Zone {gameObject.name}: NPC {npc.name} entered zone at time {currentTime}");
-                TriggerMovements(npc);
+                
+                // Déclencher uniquement les mouvements sans startTime
+                TriggerNonTimedMovements(npc);
+                
                 processedNPCs[npc] = currentTime;
             }
             // Si le NPC est sorti de la zone
-            else if (distance > detectionRadius && processedNPCs.ContainsKey(npc))
+            else if (Vector3.Distance(npc.transform.position, transform.position) > detectionRadius)
             {
                 Debug.Log($"Zone {gameObject.name}: NPC {npc.name} left zone");
                 processedNPCs.Remove(npc);
@@ -103,18 +138,62 @@ public class ActionDirector : MonoBehaviour
         }
     }
     
-    private void TriggerMovements(NpcMovement npc)
+    private NpcMovement[] GetNPCsInZone()
     {
-        // Créer les commandes
-        MovementCommand[] commands = new MovementCommand[movementSequence.Count];
-        for (int i = 0; i < movementSequence.Count; i++)
+        // Trouver tous les NPCs dans la scène
+        NpcMovement[] allNPCs = FindObjectsOfType<NpcMovement>();
+        List<NpcMovement> npcsInZone = new List<NpcMovement>();
+        
+        foreach (NpcMovement npc in allNPCs)
         {
-            MovementStep step = movementSequence[i];
-            commands[i] = new MovementCommand(step.movementType, step.parameters);
+            if (npc == null) continue;
+            
+            float distance = Vector3.Distance(npc.transform.position, transform.position);
+            
+            // Si le NPC est dans la zone
+            if (distance <= detectionRadius)
+            {
+                npcsInZone.Add(npc);
+            }
         }
         
-        // Exécuter la séquence
-        npc.QueueMovementSequence(commands);
+        return npcsInZone.ToArray();
+    }
+    
+    // Méthode pour déclencher un seul mouvement
+    private void TriggerSingleMovement(NpcMovement npc, MovementStep step)
+    {
+        // Créer une copie des paramètres pour ne pas modifier l'original
+        MovementParameters parameters = new MovementParameters();
+        parameters.startTime = step.parameters.startTime;
+        parameters.targetObject = step.parameters.targetObject;
+        parameters.audioClip = step.parameters.audioClip;
+        parameters.duration = step.parameters.duration;
+        parameters.speed = step.parameters.speed;
+        
+        // Exécuter l'action
+        npc.QueueMovement(step.movementType, parameters);
+    }
+    
+    // Méthode pour déclencher uniquement les mouvements sans startTime
+    private void TriggerNonTimedMovements(NpcMovement npc)
+    {
+        List<MovementCommand> commands = new List<MovementCommand>();
+        
+        foreach (var step in movementSequence)
+        {
+            // Ne prendre que les mouvements sans startTime
+            if (step.parameters.startTime <= 0)
+            {
+                commands.Add(new MovementCommand(step.movementType, step.parameters));
+            }
+        }
+        
+        if (commands.Count > 0)
+        {
+            // Exécuter la séquence
+            npc.QueueMovementSequence(commands.ToArray());
+        }
     }
     
     // Visualiser la zone de détection dans l'éditeur

@@ -383,12 +383,14 @@ MonoBehaviour:
   movementSequence:
   - movementType: 3
     parameters:
+      startTime: 0
       targetObject: {fileID: 0}
       audioClip: {fileID: 0}
       duration: 3
       speed: 3
   - movementType: 1
     parameters:
+      startTime: 5
       targetObject: {fileID: 866473959}
       audioClip: {fileID: 0}
       duration: 3
@@ -2980,6 +2982,7 @@ MonoBehaviour:
   movementSequence:
   - movementType: 1
     parameters:
+      startTime: 0
       targetObject: {fileID: 80786935}
       audioClip: {fileID: 0}
       duration: 3

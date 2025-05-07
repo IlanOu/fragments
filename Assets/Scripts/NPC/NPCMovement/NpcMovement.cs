@@ -165,11 +165,6 @@ namespace NPC.NPCMovement
             _pendingMovements.Clear();
         }
         
-        
-        
-        // Ajoutez ces méthodes à votre classe Movement existante
-        // pour le support du système de rewind
-
         // Méthode pour obtenir l'état actuel
         public MovementState GetCurrentState()
         {
@@ -221,8 +216,6 @@ namespace NPC.NPCMovement
                 }
             }
         }
-
-
 
         private NPCMovementType GetMovementTypeFromStrategy(MovementStrategy strategy)
         {
@@ -294,10 +287,6 @@ namespace NPC.NPCMovement
             
             return parameters;
         }
-
-
-
-        
     }
 
     // Classe pour représenter une commande de mouvement
@@ -318,13 +307,14 @@ namespace NPC.NPCMovement
     [System.Serializable]
     public class MovementParameters
     {
+        public float startTime;
         public GameObject targetObject;
         public AudioClip audioClip;
         public float duration = 3f;
         public float speed = 1f;
     }
     
-    // Ajoutez cette classe quelque part dans votre code
+    // Classe pour stocker l'état du mouvement
     [System.Serializable]
     public class MovementState
     {
