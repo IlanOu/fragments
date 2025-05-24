@@ -106,7 +106,7 @@ namespace Steps
         {
             yield return new WaitUntil(() => SceneTransitionBlinker.Instance != null);
 
-            SceneTransitionBlinker.Instance.TransitionToScene(nextSceneName);
+            SceneTransitionBlinker.Instance.TransitionToSceneWithVideo(nextSceneName);
         }
     }
 }

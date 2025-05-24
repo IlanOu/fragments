@@ -44,7 +44,7 @@ namespace Cinematics
         private IEnumerator TransitionToNextSceneWithBlink()
         {
 
-            SceneTransitionBlinker.Instance.TransitionToScene(nextSceneName);
+            SceneTransitionBlinker.Instance.TransitionToSceneWithVideo(nextSceneName);
             yield break;
         }
     }

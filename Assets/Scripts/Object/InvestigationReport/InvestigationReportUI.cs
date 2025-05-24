@@ -27,7 +27,7 @@ namespace Object.InvestigationReport
         private List<GameObject> gridContainers = new List<GameObject>();
         private bool cursorStateBeforeShow = false;
 
-#region Unity Callbacks
+        #region Unity Callbacks
 
         void Start()
         {
@@ -61,7 +61,7 @@ namespace Object.InvestigationReport
             }
         }
 
-#endregion
+        #endregion
 
 
         void ShowUI()
@@ -190,7 +190,7 @@ namespace Object.InvestigationReport
             }
         }
         
-#region UI Management
+        #region UI Management
 
         private void AddUIItem(InvestigationData data)
         {
@@ -346,7 +346,7 @@ namespace Object.InvestigationReport
             }
         }
 
-#endregion
+        #endregion
         
         private void OnDisable()
         {

@@ -1,16 +1,22 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 using System.Collections;
 
-namespace Cinematics
+namespace Cinematics 
 {
-    public class SceneTransitionBlinker : MonoBehaviour
+    public class SceneTransitionBlinker : MonoBehaviour 
     {
         public static SceneTransitionBlinker Instance;
 
         [Header("Panels qui forment les paupières")]
         [SerializeField] private RectTransform topPanel;
         [SerializeField] private RectTransform bottomPanel;
+
+        [Header("Vidéo de transition")]
+        [SerializeField] private VideoPlayer videoPlayer;
+        [SerializeField] private RectTransform videoPanel; // Panel contenant le VideoPlayer
+        [SerializeField] private VideoClip transitionVideo; // Clip vidéo à jouer
 
         [Header("Durée du clin d'œil")]
         [SerializeField] private float blinkDuration = 0.4f;
@@ -35,6 +41,7 @@ namespace Cinematics
             DontDestroyOnLoad(gameObject);
             
             InitPanelPositions();
+            InitVideoPlayer();
         }
 
         private void InitPanelPositions()
@@ -50,21 +57,94 @@ namespace Cinematics
             bottomPanel.anchoredPosition = bottomOpenPos;
         }
 
+        private void InitVideoPlayer()
+        {
+            if (videoPlayer != null)
+            {
+                // Configure le VideoPlayer
+                videoPlayer.playOnAwake = false;
+                videoPlayer.isLooping = false;
+                videoPlayer.renderMode = VideoRenderMode.RenderTexture;
+                
+                // Cache le panel vidéo au départ
+                if (videoPanel != null)
+                    videoPanel.gameObject.SetActive(false);
+            }
+        }
+
         /// <summary>
-        /// Amène les panels au sommet de la hiérarchie pour qu’ils soient visibles devant tout.
+        /// Amène les panels au sommet de la hiérarchie pour qu'ils soient visibles devant tout.
         /// </summary>
         private void BringToFront()
         {
             topPanel.transform.SetAsLastSibling();
             bottomPanel.transform.SetAsLastSibling();
+            if (videoPanel != null)
+                videoPanel.transform.SetAsLastSibling();
         }
 
         /// <summary>
-        /// Transition complète : blink (fermeture) → chargement → blink (ouverture)
+        /// Transition complète avec vidéo : blink (fermeture) → vidéo → chargement → blink (ouverture)
+        /// </summary>
+        public void TransitionToSceneWithVideo(string sceneName, VideoClip videoClip = null)
+        {
+            StartCoroutine(BlinkWithVideoThenLoad(sceneName, videoClip));
+        }
+
+        /// <summary>
+        /// Transition sans vidéo (méthode originale)
         /// </summary>
         public void TransitionToScene(string sceneName)
         {
             StartCoroutine(BlinkThenLoad(sceneName));
+        }
+
+        private IEnumerator BlinkWithVideoThenLoad(string sceneName, VideoClip videoClip = null)
+        {
+            // Fermeture
+            yield return StartCoroutine(Blink(close: true));
+
+            // Joue la vidéo si disponible
+            if (videoPlayer != null && (videoClip != null || transitionVideo != null))
+            {
+                yield return StartCoroutine(PlayTransitionVideo(videoClip ?? transitionVideo));
+            }
+
+            // Chargement de la nouvelle scène
+            yield return SceneManager.LoadSceneAsync(sceneName);
+            yield return new WaitForEndOfFrame();
+
+            // Force les panels à être sur le dessus
+            BringToFront();
+            
+            // Ouverture
+            yield return StartCoroutine(Blink(close: false));
+        }
+
+        private IEnumerator PlayTransitionVideo(VideoClip clip)
+        {
+            // Active et configure la vidéo
+            videoPanel.gameObject.SetActive(true);
+            videoPlayer.clip = clip;
+            
+            // Prépare la vidéo
+            videoPlayer.Prepare();
+            while (!videoPlayer.isPrepared)
+            {
+                yield return null;
+            }
+
+            // Joue la vidéo
+            videoPlayer.Play();
+            
+            // Attend la fin de la vidéo
+            while (videoPlayer.isPlaying)
+            {
+                yield return null;
+            }
+
+            // Cache le panel vidéo
+            videoPanel.gameObject.SetActive(false);
         }
 
         private IEnumerator BlinkThenLoad(string sceneName)
@@ -74,7 +154,6 @@ namespace Cinematics
 
             // Chargement de la nouvelle scène
             yield return SceneManager.LoadSceneAsync(sceneName);
-            // Attend la fin de la frame pour s'assurer que la nouvelle scène est active
             yield return new WaitForEndOfFrame();
 
             // Force les panels à être sur le dessus
@@ -85,7 +164,34 @@ namespace Cinematics
         }
 
         /// <summary>
-        /// Effectue un blink complet en deux étapes, avec une action intermédiaire.
+        /// Effectue un blink complet avec vidéo optionnelle au milieu
+        /// </summary>
+        public IEnumerator BlinkAndDoWithVideo(System.Func<IEnumerator> actionToRunMidBlink, VideoClip videoClip = null)
+        {
+            // Fermeture
+            yield return StartCoroutine(Blink(true));
+            Debug.Log("Fermeture des paupières");
+            
+            // Joue la vidéo si disponible
+            if (videoPlayer != null && (videoClip != null || transitionVideo != null))
+            {
+                yield return StartCoroutine(PlayTransitionVideo(videoClip ?? transitionVideo));
+            }
+            
+            // Exécute l'action centrale
+            if (actionToRunMidBlink != null)
+                yield return StartCoroutine(actionToRunMidBlink());
+
+            yield return new WaitForEndOfFrame();
+            BringToFront();
+
+            // Ouverture
+            Debug.Log("Ouverture des paupières");
+            yield return StartCoroutine(Blink(false));
+        }
+
+        /// <summary>
+        /// Effectue un blink complet en deux étapes, avec une action intermédiaire (méthode originale).
         /// </summary>
         public IEnumerator BlinkAndDo(System.Func<IEnumerator> actionToRunMidBlink)
         {
@@ -97,7 +203,6 @@ namespace Cinematics
             if (actionToRunMidBlink != null)
                 yield return StartCoroutine(actionToRunMidBlink());
 
-            // Attend une frame pour laisser le temps de mettre à jour la scène
             yield return new WaitForEndOfFrame();
             BringToFront();
 
